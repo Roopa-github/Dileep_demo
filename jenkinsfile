@@ -1,3 +1,39 @@
-jenkins files to adding
-you
-ti
+
+pipeline{
+	agent { label 'slave'}
+	stages {
+		stage('GIT checkout') {
+			steps {
+				checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopa-github/git.git']])
+			}
+		}
+
+		stage('Build') {
+			steps {
+				echo "${BUILD_TAG}"
+			}
+		}
+
+		stage('Push') {
+			steps {
+				echo 'This is push stage'
+			}
+		}
+
+		stage('Deploy') {
+			steps {
+				parallel (
+					step1: {
+						echo 'this is step1'
+					},
+					step2: {
+						echo 'This is step2'
+					},
+					step3: {
+						echo 'This is step3'
+					}
+				)
+			}
+		}
+	}
+	
