@@ -4,6 +4,7 @@ pipeline{
 	stages {
 		stage('GIT checkout') {
 			steps {
+                               'sh git clone https://github.com/Roopa-github/git.git'
 				checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopa-github/git.git']])
 			}
 		}
