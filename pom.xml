@@ -3,5 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!-- other elements -->
+
+    <groupId>com.example</groupId>      <!-- Change this to your group ID -->
+    <artifactId>my-app</artifactId>     <!-- Change this to your artifact ID -->
+    <version>1.0-SNAPSHOT</version>     <!-- Change this to your version -->
+
+    <!-- Add other elements here like dependencies, build, etc. -->
 </project>
