@@ -1,40 +1,26 @@
 
-pipeline{
-	agent { label 'slave'}
-	stages {
-		stage('GIT checkout') {
-			steps {
-                               'sh git clone https://github.com/Roopa-github/git.git'
-				checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Roopa-github/git.git']])
-			}
-		}
-
-		stage('Build') {
-			steps {
-				echo "${BUILD_TAG}"
-			}
-		}
-
-		stage('Push') {
-			steps {
-				echo 'This is push stage'
-			}
-		}
-
-		stage('Deploy') {
-			steps {
-				parallel (
-					step1: {
-						echo 'this is step1'
-					},
-					step2: {
-						echo 'This is step2'
-					},
-					step3: {
-						echo 'This is step3'
-					}
-				)
-			}
-		}
-	}
-	
+pipeline {
+    agent any
+    stages {
+        stage('SonarQube analysis 1') {
+            steps {
+                sh 'mvn clean package sonar:sonar'
+            }
+        }
+        stage("Quality Gate 1") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+        stage('SonarQube analysis 2') {
+            steps {
+                sh 'gradle sonarqube'
+            }
+        }
+        stage("Quality Gate 2") {
+            steps {
+                waitForQualityGate abortPipeline: true
+            }
+        }
+    }
+}
